@@ -5,7 +5,7 @@
     name: Navigation Menu
 
   subscription: 
-    version-number: 63134297
+    version-number: 63708151
 
   source: 
     type: Static Values
@@ -83,6 +83,33 @@
       target: 
         url: 'f?p=&APP_ID.:3:&APP_SESSION.::&DEBUG.:::'
         page: 3 # Product Info
+
+    click-counting: 
+      count-clicks: false
+
+    user-defined-attributes: 
+      translatable: false
+
+  - # ====== Entry: dev cicd page ================================
+    id: 71947439463055189
+    label: 
+      label: dev cicd page
+
+    icon: 
+      image/icon-css-classes: fa-file-o
+
+    layout: 
+      sequence: 40
+
+    is-current: 
+      type: Pages
+      pages: 
+      - 4
+
+    link: 
+      target: 
+        url: 'f?p=&APP_ID.:4:&APP_SESSION.::&DEBUG.:::'
+        page: 4 # dev cicd page
 
     click-counting: 
       count-clicks: false
