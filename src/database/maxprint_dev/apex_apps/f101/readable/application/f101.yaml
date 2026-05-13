@@ -1,0 +1,274 @@
+---
+# ====== Application: dev ====================================
+id: 101
+identification: 
+  name: dev
+  alias: DEV
+  version: Release 1.0
+
+row-search: 
+  tokenize: true
+  text-query-function: None
+
+availability: 
+  status: Available with Developer Toolbar
+  build-status: Run and Build Application
+
+error-handling: 
+  default-display-location: Inline with Field and in Notification
+
+report-printing: 
+  type: Native Printing
+
+advanced: 
+  friendly-urls: true
+  allow-feedback: true
+  logging: true
+  debugging: false
+  compatibility-mode: 24.2
+  accessible-read-only-items: true
+  pass-ecid: Y
+
+authentication: 
+  public-user: APEX_PUBLIC_USER
+  authentication-scheme: Oracle APEX Accounts # 32599134549630203
+
+authorization: 
+  source-for-role-or-group-schemes: Access Control User Role Assignments
+
+session-management: 
+  rejoin-sessions: Disabled
+
+session-state-protection: 
+  enabled: true
+
+security: 
+  deep-linking: Disabled
+  browser-cache: Disabled
+  embed-in-frames: Deny
+  referrer-policy: strict-origin
+  html-escaping-mode: Extended
+
+database-session: 
+  parsing-schema: MAXPRINT_DEV
+
+globalization: 
+  primary-language: English (en)
+  document-direction: Language Default
+  language-derived-from: Application Primary Language
+  automatic-time-zone: false
+  automatic-csv-encoding: true
+
+application-format-masks: 
+  date: DS
+  timestamp: DS
+  timestamp-time-zone: DS
+
+character-value-comparison: 
+  behavior: Database session NLS setting (default)
+
+logo: 
+  type: Text
+  text: dev
+
+progressive-web-app: 
+  enable: true
+  installable: false
+  display: Standalone
+  screen-orientation: Any
+  ios-status-bar-style: Default
+  enable-push-notifications: false
+
+navigation: 
+  home-url: 
+    url: 'f?p=&APP_ID.:1:&APP_SESSION.::&DEBUG.:::'
+    page: 1 # Home
+
+  login-url: 
+    url: 'f?p=&APP_ID.:LOGIN:&APP_SESSION.::&DEBUG.:::'
+    page: LOGIN
+
+navigation-menu: 
+  list-template: Side Navigation Menu
+  template-options: 
+  - '#DEFAULT#'
+  - t-TreeNav--styleA
+  - js-navCollapsed--hidden
+  list-position: Side
+  list: Navigation Menu # 32599979922630207
+
+navigation-bar: 
+  implementation: List
+  list: Navigation Bar # 32601152324630230
+  list-template: Navigation Bar
+  template-options: 
+  - '#DEFAULT#'
+
+javascript: 
+  include-jquery-migrate: false
+
+attributes: 
+  theme: Universal Theme # 42
+  global-page: 0
+  enable-end-users-to-choose-theme-style: false
+  add-"built-with-apex"-to-footer: false
+  auto-dismiss-success-messages: false
+
+subscription: 
+  version-number: 63163218
+
+substitutions: 
+- # ====== Substitution: APP_NAME ==============================
+  id: 1
+  identification: 
+    name: APP_NAME
+
+  value: 
+    static-value: dev
+
+component-settings: 
+- # ====== Component Setting: NATIVE_DISPLAY_SELECTOR ==========
+  id: 32594692716630198
+  identification: 
+    name: NATIVE_DISPLAY_SELECTOR
+    type: Region
+
+  subscription: 
+    version-number: 30629877
+
+- # ====== Component Setting: NATIVE_OPEN_AI_ASSISTANT =========
+  id: 32594987340630200
+  identification: 
+    name: NATIVE_OPEN_AI_ASSISTANT
+    type: Dynamic Action
+
+  subscription: 
+    version-number: 30629877
+
+- # ====== Component Setting: NATIVE_DATE_PICKER_APEX ==========
+  id: 32595238381630200
+  identification: 
+    name: NATIVE_DATE_PICKER_APEX
+    type: Item
+
+  subscription: 
+    version-number: 30629877
+
+- # ====== Component Setting: NATIVE_GEOCODED_ADDRESS ==========
+  id: 32595519645630200
+  identification: 
+    name: NATIVE_GEOCODED_ADDRESS
+    type: Item
+
+  subscription: 
+    version-number: 30629877
+
+- # ====== Component Setting: NATIVE_MAP_REGION ================
+  id: 32595881892630200
+  identification: 
+    name: NATIVE_MAP_REGION
+    type: Region
+
+  settings: 
+    attribute-1: Y
+
+  subscription: 
+    version-number: 30630940
+
+- # ====== Component Setting: NATIVE_BOSS ======================
+  id: 32596134060630200
+  identification: 
+    name: NATIVE_BOSS
+    type: REST Data Source
+
+  subscription: 
+    version-number: 30629877
+
+- # ====== Component Setting: NATIVE_ADFBC =====================
+  id: 32596444119630201
+  identification: 
+    name: NATIVE_ADFBC
+    type: REST Data Source
+
+  subscription: 
+    version-number: 30629877
+
+- # ====== Component Setting: NATIVE_GEOCODING =================
+  id: 32596728222630201
+  identification: 
+    name: NATIVE_GEOCODING
+    type: Process
+
+  settings: 
+    attribute-1: RELAX_HOUSE_NUMBER
+
+  subscription: 
+    version-number: 30629877
+
+- # ====== Component Setting: NATIVE_SINGLE_CHECKBOX ===========
+  id: 32597060214630201
+  identification: 
+    name: NATIVE_SINGLE_CHECKBOX
+    type: Item
+
+  subscription: 
+    version-number: 30629877
+
+- # ====== Component Setting: NATIVE_IR ========================
+  id: 32597360709630201
+  identification: 
+    name: NATIVE_IR
+    type: Region
+
+  subscription: 
+    version-number: 30629877
+
+- # ====== Component Setting: NATIVE_SELECT_MANY ===============
+  id: 32597621598630201
+  identification: 
+    name: NATIVE_SELECT_MANY
+    type: Item
+
+  subscription: 
+    version-number: 30629877
+
+- # ====== Component Setting: NATIVE_COLOR_PICKER ==============
+  id: 32597930959630201
+  identification: 
+    name: NATIVE_COLOR_PICKER
+    type: Item
+
+  subscription: 
+    version-number: 30629877
+
+- # ====== Component Setting: NATIVE_STAR_RATING ===============
+  id: 32598206264630201
+  identification: 
+    name: NATIVE_STAR_RATING
+    type: Item
+
+  subscription: 
+    version-number: 30629877
+
+- # ====== Component Setting: NATIVE_YES_NO ====================
+  id: 32598541500630201
+  identification: 
+    name: NATIVE_YES_NO
+    type: Item
+
+  subscription: 
+    version-number: 30629877
+
+- # ====== Component Setting: PLUGIN_COM.PLUGIN.MAXPRINT_V2 ====
+  id: 32652140512636476
+  identification: 
+    name: PLUGIN_COM.PLUGIN.MAXPRINT_V2
+    type: Dynamic Action
+
+  settings: 
+    attribute-1: 'https://appv2.maxprint.io/api/v1'
+    attribute-2: 6004F2vS5WyM4UkYP7J7i5aBg0fckY3futqbMQrOJFeiPR8tSJ22OavafDQe919
+
+  subscription: 
+    version-number: 63163218
+

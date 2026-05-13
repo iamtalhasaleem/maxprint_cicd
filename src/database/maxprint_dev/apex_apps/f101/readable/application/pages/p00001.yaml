@@ -1,0 +1,420 @@
+---
+# ====== Page: Home ==========================================
+id: 1
+identification: 
+  name: Home
+  alias: HOME
+  title: dev
+
+appearance: 
+  page-mode: Normal
+  page-template: Theme Default
+  template-options: 
+  - '#DEFAULT#'
+
+navigation-menu: 
+  override-user-interface-level: false
+
+navigation: 
+  cursor-focus: Do not focus cursor
+  warn-on-unsaved-changes: true
+
+security: 
+  authentication: Page Requires Authentication
+  deep-linking: Application Default
+  page-access-protection: Arguments Must Have Checksum
+  form-auto-complete: Off
+  browser-cache: Application Default
+
+session-management: 
+  rejoin-sessions: Application Default
+
+advanced: 
+  enable-duplicate-page-submissions: Yes - Enable page to be re-posted
+  reload-on-submit: Only for Success
+
+server-cache: 
+  caching: Disabled
+
+regions: 
+- # ====== Region: dev =========================================
+  id: 32612608388630274
+  identification: 
+    name: dev
+    type: Static Content
+
+  layout: 
+    sequence: 10
+    parent-region: No Parent
+    slot: REGION_POSITION_01
+    start-new-layout: false
+    start-new-row: true
+    column: Automatic
+    new-column: true
+    column-span: Automatic
+
+  appearance: 
+    template: Hero
+    template-options: 
+    - '#DEFAULT#'
+    render-components: Above Content
+
+  accessibility: 
+    use-landmark: true
+    landmark-type: Template Default
+
+  image: 
+    file-url: '#APP_FILES#icons/app-icon-512.png'
+
+  advanced: 
+    region-display-selector: false
+    exclude-title-from-translation: false
+
+  customization: 
+    customizable: Not Customizable By End Users
+
+  attributes: 
+    settings: 
+      output-as: HTML
+      expand-shortcuts: false
+
+buttons: 
+- # ====== Button: Tabular =====================================
+  id: 12164396445764342
+  identification: 
+    button-name: Tabular
+    label: Tabular
+
+  layout: 
+    sequence: 10
+    region: No Parent
+    slot: BODY
+    start-new-layout: false
+    start-new-row: true
+    column: Automatic
+    new-column: true
+    column-span: Automatic
+    alignment: Left center
+
+  appearance: 
+    button-template: Text
+    hot: false
+    template-options: 
+    - '#DEFAULT#'
+
+  behavior: 
+    action: Defined by Dynamic Action
+    execute-validations: true
+
+- # ====== Button: Group_Above =================================
+  id: 33948807941800002
+  identification: 
+    button-name: Group_Above
+    label: Group Above
+
+  layout: 
+    sequence: 20
+    region: No Parent
+    slot: BODY
+    start-new-layout: false
+    start-new-row: true
+    column: Automatic
+    new-column: true
+    column-span: Automatic
+    alignment: Left center
+
+  appearance: 
+    button-template: Text
+    hot: false
+    template-options: 
+    - '#DEFAULT#'
+
+  behavior: 
+    action: Defined by Dynamic Action
+    execute-validations: true
+
+- # ====== Button: Cross_Tab ===================================
+  id: 33949156753800005
+  identification: 
+    button-name: Cross_Tab
+    label: Cross Tab
+
+  layout: 
+    sequence: 30
+    region: No Parent
+    slot: BODY
+    start-new-layout: false
+    start-new-row: true
+    column: Automatic
+    new-column: true
+    column-span: Automatic
+    alignment: Left center
+
+  appearance: 
+    button-template: Text
+    hot: false
+    template-options: 
+    - '#DEFAULT#'
+
+  behavior: 
+    action: Defined by Dynamic Action
+    execute-validations: true
+
+- # ====== Button: Invoice =====================================
+  id: 33949424665800008
+  identification: 
+    button-name: Invoice
+    label: Invoice
+
+  layout: 
+    sequence: 40
+    region: No Parent
+    slot: BODY
+    start-new-layout: false
+    start-new-row: true
+    column: Automatic
+    new-column: true
+    column-span: Automatic
+    alignment: Left center
+
+  appearance: 
+    button-template: Text
+    hot: false
+    template-options: 
+    - '#DEFAULT#'
+
+  behavior: 
+    action: Defined by Dynamic Action
+    execute-validations: true
+
+dynamic-actions: 
+- # ====== Dynamic Action: New =================================
+  id: 12164403612764343
+  identification: 
+    name: New
+
+  execution: 
+    sequence: 10
+    event-scope: Static
+    type: Immediate
+
+  when: 
+    event: Click
+    selection-type: Button
+    button: Tabular # 12164396445764342
+
+  actions: 
+  - # ====== Action: MaxPrint_V2 =================================
+    id: 12164532162764344
+    identification: 
+      action: MaxPrint_V2
+
+    settings: 
+      action: Create
+      data-source-type: SQL Query
+      sql-type: Simple SQL
+      query: |
+        select FIRST_NAME, salary
+        from employees
+        order by 1;
+
+    execution: 
+      sequence: 10
+      event: New # 12164403612764343
+      fire-when-event-result-is: True
+      fire-on-initialization: false
+      stop-execution-on-error: true
+      wait-for-result: true
+
+- # ====== Dynamic Action: New_1 ===============================
+  id: 33948918161800003
+  identification: 
+    name: New_1
+
+  execution: 
+    sequence: 20
+    event-scope: Static
+    type: Immediate
+
+  when: 
+    event: Click
+    selection-type: Button
+    button: Group_Above # 33948807941800002
+
+  actions: 
+  - # ====== Action: MaxPrint_V2 =================================
+    id: 33949099297800004
+    identification: 
+      action: MaxPrint_V2
+
+    settings: 
+      action: Create
+      data-source-type: SQL Query
+      sql-type: JSON Object SQL
+      query: |2
+            SELECT json_arrayagg(
+                    json_object(
+                      'customer_id'       VALUE c.customer_id,
+                      'customer_name'     VALUE c.cust_first_name || ' ' || c.cust_last_name,
+                      'email'             VALUE c.cust_email,
+                      'phone'             VALUE c.phone_number1,
+                      'address'       	   VALUE c.cust_street_address1 || ', ' || c.cust_city,
+                      'order_id'          VALUE o.order_id,
+                      'order_date'        VALUE o.order_timestamp,
+                      'order_total'       VALUE o.order_total,
+                      'items' VALUE (
+                        SELECT json_arrayagg(
+                                  json_object(
+                                    'order_item_id' VALUE oi.order_item_id,
+                                    'product_id'    VALUE p.product_id,
+                                    'product_name'  VALUE p.product_name,
+                                    'unit_price'    VALUE oi.unit_price,
+                                    'quantity'      VALUE oi.quantity,
+                                    'line_total'    VALUE (oi.unit_price * oi.quantity)
+                                  )
+                                  ORDER BY oi.order_item_id
+                                  RETURNING CLOB
+                                )
+                        FROM demo_order_items oi
+                        JOIN demo_product_info p 
+                          ON oi.product_id = p.product_id
+                        WHERE oi.order_id = o.order_id
+                      )
+                      RETURNING CLOB
+                    )
+                    RETURNING CLOB
+                  ) AS customer_invoices
+            FROM demo_customers c
+            JOIN demo_orders o
+              ON c.customer_id = o.customer_id
+            WHERE EXISTS (SELECT 1 
+                            FROM demo_order_items oi 
+                          WHERE oi.order_id = o.order_id);
+
+    execution: 
+      sequence: 10
+      event: New_1 # 33948918161800003
+      fire-when-event-result-is: True
+      fire-on-initialization: false
+      stop-execution-on-error: true
+      wait-for-result: true
+
+- # ====== Dynamic Action: New_2 ===============================
+  id: 33949285499800006
+  identification: 
+    name: New_2
+
+  execution: 
+    sequence: 30
+    event-scope: Static
+    type: Immediate
+
+  when: 
+    event: Click
+    selection-type: Button
+    button: Cross_Tab # 33949156753800005
+
+  actions: 
+  - # ====== Action: MaxPrint_V2 =================================
+    id: 33949300274800007
+    identification: 
+      action: MaxPrint_V2
+
+    settings: 
+      action: Create
+      data-source-type: SQL Query
+      sql-type: JSON Object SQL
+      query: |
+        SELECT 
+        JSON_OBJECT(
+          'columns' VALUE (
+            SELECT JSON_ARRAYAGG(JOB_TITLE ORDER BY JOB_TITLE)
+            FROM (
+              SELECT DISTINCT j.JOB_TITLE
+              FROM employees e, jobs j
+              WHERE e.job_id = j.Job_id
+              ORDER BY j.JOB_TITLE
+              FETCH FIRST 5 ROWS ONLY
+            )
+          ),
+          'data' VALUE (
+            SELECT JSON_ARRAYAGG(
+              JSON_OBJECT(
+                'Department' VALUE d.DEPARTMENT_NAME,
+                'rows' VALUE (
+                  SELECT JSON_ARRAYAGG(
+                    COALESCE(emp_count, 0) ORDER BY j.JOB_TITLE
+                  )
+                  FROM (
+                    SELECT DISTINCT j.JOB_TITLE
+                    FROM jobs j
+                    ORDER BY j.JOB_TITLE
+                    FETCH FIRST 5 ROWS ONLY
+        
+                  ) j
+                  LEFT JOIN (
+                    SELECT e.job_id, COUNT(*) as emp_count
+                    FROM employees e
+                    WHERE e.DEPARTMENT_ID = d.DEPARTMENT_ID
+                    GROUP BY e.job_id
+                  ) e ON j.JOB_TITLE = (SELECT JOB_TITLE FROM jobs WHERE job_id = e.job_id FETCH FIRST 5 ROWS ONLY)
+                )
+              ) ORDER BY d.DEPARTMENT_NAME
+            )
+            FROM DEPARTMENTS d
+          )
+        ) AS json_output
+        FROM DUAL;
+
+    execution: 
+      sequence: 10
+      event: New_2 # 33949285499800006
+      fire-when-event-result-is: True
+      fire-on-initialization: false
+      stop-execution-on-error: true
+      wait-for-result: true
+
+- # ====== Dynamic Action: New_3 ===============================
+  id: 33949574939800009
+  identification: 
+    name: New_3
+
+  execution: 
+    sequence: 40
+    event-scope: Static
+    type: Immediate
+
+  when: 
+    event: Click
+    selection-type: Button
+    button: Invoice # 33949424665800008
+
+  actions: 
+  - # ====== Action: MaxPrint_V2 =================================
+    id: 33949608990800010
+    identification: 
+      action: MaxPrint_V2
+
+    settings: 
+      action: Create
+      data-source-type: SQL Query
+      sql-type: JSON Object SQL
+      query: |
+        SELECT product_id,
+               product_name,
+               product_description,
+               PRODUCT_CODE,
+               CATEGORY,
+               list_price,
+               apex_web_service.blob2clobbase64 (PRODUCT_IMAGE) PRODUCT_IMAGE
+        FROM demo_product_info
+        WHERE category = :P5_CATEGORY;
+
+    execution: 
+      sequence: 10
+      event: New_3 # 33949574939800009
+      fire-when-event-result-is: True
+      fire-on-initialization: false
+      stop-execution-on-error: true
+      wait-for-result: true
+

@@ -1,0 +1,181 @@
+---
+# ====== Page: Product Info ==================================
+id: 3
+identification: 
+  name: Product Info
+  alias: PRODUCT-INFO
+  title: Product Info
+
+appearance: 
+  page-mode: Normal
+  page-template: Theme Default
+  template-options: 
+  - '#DEFAULT#'
+
+navigation-menu: 
+  override-user-interface-level: false
+
+navigation: 
+  cursor-focus: Do not focus cursor
+  warn-on-unsaved-changes: true
+
+security: 
+  authentication: Page Requires Authentication
+  deep-linking: Application Default
+  page-access-protection: Arguments Must Have Checksum
+  form-auto-complete: Off
+  browser-cache: Application Default
+
+session-management: 
+  rejoin-sessions: Application Default
+
+advanced: 
+  enable-duplicate-page-submissions: Yes - Enable page to be re-posted
+  reload-on-submit: Only for Success
+
+server-cache: 
+  caching: Disabled
+
+page-items: 
+- # ====== Page Item: P3_CATEGORY ==============================
+  id: 69949450769063201
+  identification: 
+    name: P3_CATEGORY
+    type: Select List
+
+  label: 
+    label: Category
+    alignment: Left
+
+  settings: 
+    page-action-on-selection: None
+
+  multiple-values: 
+    type: No
+
+  layout: 
+    sequence: 10
+    region: No Parent
+    slot: BODY
+    alignment: Left
+    start-new-layout: false
+    start-new-row: true
+    column: Automatic
+    new-column: true
+    column-span: Automatic
+    label-column-span: Page Template Default
+
+  appearance: 
+    template: Optional - Floating
+    template-options: 
+    - '#DEFAULT#'
+    height: 1
+
+  validation: 
+    value-required: false
+
+  list-of-values: 
+    type: SQL Query
+    sql-query: |
+      SELECT DISTINCT category AS display_value,
+                      category AS return_value
+      FROM demo_product_info
+      ORDER BY 1;
+    display-extra-values: true
+    display-null-value: true
+
+  advanced: 
+    warn-on-unsaved-changes: Page Default
+
+  source: 
+    type: Null
+    used: Only when current value in session state is null
+
+  session-state: 
+    storage: Per Session (Persistent)
+
+  quick-picks: 
+    show-quick-picks: false
+
+  security: 
+    session-state-protection: Unrestricted
+    store-value-encrypted-in-session-state: true
+    restricted-characters: All characters can be saved.
+
+buttons: 
+- # ====== Button: Product_Info ================================
+  id: 69949513101063202
+  identification: 
+    button-name: Product_Info
+    label: Product Info
+
+  layout: 
+    sequence: 20
+    region: No Parent
+    slot: BODY
+    start-new-layout: false
+    start-new-row: true
+    column: Automatic
+    new-column: true
+    column-span: Automatic
+    alignment: Left center
+
+  appearance: 
+    button-template: Text
+    hot: false
+    template-options: 
+    - '#DEFAULT#'
+
+  behavior: 
+    action: Defined by Dynamic Action
+    execute-validations: true
+
+dynamic-actions: 
+- # ====== Dynamic Action: MaxPrint Info =======================
+  id: 69949620636063203
+  identification: 
+    name: MaxPrint Info
+
+  execution: 
+    sequence: 10
+    event-scope: Static
+    type: Immediate
+
+  when: 
+    event: Click
+    selection-type: Button
+    button: Product_Info # 69949513101063202
+
+  actions: 
+  - # ====== Action: MaxPrint_V2 =================================
+    id: 69949705620063204
+    identification: 
+      action: MaxPrint_V2
+
+    settings: 
+      action: Run
+      data-source-type: SQL Query
+      sql-type: Simple SQL
+      query: |
+        SELECT product_id,
+               product_name,
+               product_description,
+               CATEGORY,
+               list_price,
+               apex_web_service.blob2clobbase64 (PRODUCT_IMAGE) PRODUCT_IMAGE
+        FROM demo_product_info
+        WHERE category = :P3_CATEGORY;
+      template-source: Template ID
+      template-id: 7a542725-6052-4569-be68-98b4e775245c
+      items-to-submit: P3_CATEGORY
+      output-type: PDF
+      output-method: Open
+
+    execution: 
+      sequence: 10
+      event: MaxPrint Info # 69949620636063203
+      fire-when-event-result-is: True
+      fire-on-initialization: false
+      stop-execution-on-error: true
+      wait-for-result: true
+

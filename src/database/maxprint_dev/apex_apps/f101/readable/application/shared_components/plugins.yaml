@@ -1,0 +1,725 @@
+---
+- # ====== Plugin: MaxPrint_V2 =================================
+  id: 2331330681370227912
+  identification: 
+    name: MaxPrint_V2
+    internal-name: COM.PLUGIN.MAXPRINT_V2
+    type: Dynamic Action
+
+  advanced: 
+    category: Execute
+    quick-pick: false
+
+  subscription: 
+    version-number: 52827368
+
+  callbacks: 
+    api-interface: Function
+    render-procedure/function-name: '#OWNER#.MAXPRINT_UTILS_V2.maxprint_call'
+    ajax-procedure/function-name: '#OWNER#.MAXPRINT_UTILS_V2.maxprint_da_ajax'
+
+  standard-attributes: 
+    attributes: 
+    - Has "Stop Execution on Error" Attribute
+    - Has "Wait For Result" Attribute
+    - Has "Initialization JavaScript Code" Attribute
+
+  custom-attributes: 
+    substitute-attribute-values: true
+
+  information: 
+    version: 2.0
+    help-text: MaxPrint_V2 is APEX Plugin which provides user friendly template reporting.
+
+  standard-attributes: 
+  - # ====== Standard Attribute: INIT_JAVASCRIPT_CODE ============
+    id: 2331330945959227947
+    identification: 
+      name: INIT_JAVASCRIPT_CODE
+
+    value: 
+      required: false
+
+  custom-attributes: 
+  - # ====== Custom Attribute: URL ===============================
+    id: 850577514389475128
+    identification: 
+      attribute: 1
+      name: URL
+      scope: Application
+
+    layout: 
+      sequence: 10
+
+    settings: 
+      type: Text
+      common: true
+      show-in-wizard: true
+      required: true
+      translatable: false
+
+    default: 
+      value: 'https://appv2.maxprint.io/api/v1'
+
+  - # ====== Custom Attribute: MaxPrint API Key ==================
+    id: 2331333450698271647
+    identification: 
+      attribute: 2
+      name: MaxPrint API Key
+      scope: Application
+
+    layout: 
+      sequence: 20
+
+    settings: 
+      type: Text
+      common: true
+      show-in-wizard: true
+      required: true
+      translatable: false
+
+    help: 
+      help-text: This field stores token to access MaxPrint services.
+
+  - # ====== Custom Attribute: Action ============================
+    id: 2331338085136317879
+    identification: 
+      attribute: 1
+      name: Action
+      scope: Component
+
+    layout: 
+      sequence: 10
+
+    settings: 
+      type: Select List
+      lov-type: Static
+      common: true
+      show-in-wizard: true
+      required: true
+      translatable: false
+
+    default: 
+      value: C
+
+    help: 
+      help-text: |
+        <b>Create : </b> This option enables user to create template against their queries. <br>
+        <b>Edit : </b> This option enables user to edit template against their queries. <br>
+        <b>Run : </b> This option enables user to run reports against their templates and queries. <br>
+
+    entries: 
+    - # ====== Entry: Create =======================================
+      id: 2331339112555319818
+      entry: 
+        sequence: 10
+        display: Create
+        return: C
+
+      advanced: 
+        quick-pick: false
+
+    - # ====== Entry: Edit =========================================
+      id: 2331339530839321425
+      entry: 
+        sequence: 20
+        display: Edit
+        return: E
+
+      advanced: 
+        quick-pick: false
+
+    - # ====== Entry: Run ==========================================
+      id: 2331339922728322422
+      entry: 
+        sequence: 30
+        display: Run
+        return: R
+
+      advanced: 
+        quick-pick: false
+
+  - # ====== Custom Attribute: Data Source Type ==================
+    id: 2331341414476338829
+    identification: 
+      attribute: 2
+      name: Data Source Type
+      scope: Component
+
+    layout: 
+      sequence: 20
+
+    settings: 
+      type: Select List
+      lov-type: Static
+      common: true
+      show-in-wizard: true
+      required: true
+      translatable: false
+
+    default: 
+      value: SQL
+
+    entries: 
+    - # ====== Entry: SQL Query ====================================
+      id: 2331342369894341029
+      entry: 
+        sequence: 10
+        display: SQL Query
+        return: SQL
+
+      advanced: 
+        quick-pick: true
+
+    - # ====== Entry: Function Returning SQL =======================
+      id: 2331342796117342572
+      entry: 
+        sequence: 20
+        display: Function Returning SQL
+        return: FRS
+
+      advanced: 
+        quick-pick: false
+
+  - # ====== Custom Attribute: SQL Type ==========================
+    id: 2331344294260362263
+    identification: 
+      attribute: 3
+      name: SQL Type
+      scope: Component
+
+    layout: 
+      sequence: 30
+
+    settings: 
+      type: Select List
+      lov-type: Static
+      common: true
+      show-in-wizard: true
+      required: true
+      translatable: false
+
+    default: 
+      value: S
+
+    condition: 
+      depending-on-custom-attribute: Data Source Type # 2331341414476338829
+      depending-on-condition-type: equal to
+      expression: SQL
+      always-evaluate: true
+
+    help: 
+      help-text: Select Simple Query for maximum 1st level of detail, for nth level of detail select <b>JSON Object Sql</b> or <b>Cursor Sql</b>
+
+    entries: 
+    - # ====== Entry: Simple SQL ===================================
+      id: 2331344747481363722
+      entry: 
+        sequence: 10
+        display: Simple SQL
+        return: S
+
+      advanced: 
+        quick-pick: false
+
+    - # ====== Entry: JSON Object SQL ==============================
+      id: 2331345219389365168
+      entry: 
+        sequence: 20
+        display: JSON Object SQL
+        return: J
+
+      advanced: 
+        quick-pick: false
+
+    - # ====== Entry: Cursor SQL ===================================
+      id: 2331345604882366454
+      entry: 
+        sequence: 30
+        display: Cursor SQL
+        return: C
+
+      advanced: 
+        quick-pick: false
+
+  - # ====== Custom Attribute: PLSQL Code ========================
+    id: 2331347101206381060
+    identification: 
+      attribute: 4
+      name: PLSQL Code
+      scope: Component
+
+    layout: 
+      sequence: 40
+
+    settings: 
+      type: PL/SQL Function Body Returning VARCHAR2
+      common: true
+      show-in-wizard: true
+      required: true
+      translatable: false
+
+    condition: 
+      depending-on-custom-attribute: Data Source Type # 2331341414476338829
+      depending-on-condition-type: in list
+      expression: FRS
+      always-evaluate: true
+
+    examples: 
+      examples: |
+        <b> Function Returning Sql </b>   
+        <pre>
+        Decalre 
+        v_sql clob := 'SELECT json_arrayagg(json_object(''department_name'' value d.department_name,
+                            ''department_number'' value d.department_id,
+                            ''employees'' value (select json_arrayagg(
+                                                        json_object(''employee_number'' value e.employee_id,
+                                                        ''employee_name'' value e.first_name || '' '' || e.last_name,
+                                                        ''salary'' value e.salary,
+                                                        ''email'' value e.email,
+                                                        ''phone_number'' value e.phone_number,
+                                                        ''hire_date'' value e.hire_date) returning clob)
+                                                from hr.employees e
+                                                where e.department_id = d.department_id
+                                                ) returning clob) returning clob
+                                                ) result
+        
+        FROM hr.departments d
+        ORDER BY d.department_name'
+        Begin
+        return v_sql;
+        End;
+        </pre>
+        
+        <b>OR</b>
+        
+        <pre>
+        Decalre 
+        v_sql clob := 'SELECT d.department_name AS "department_name",   
+                       d.department_id AS "department_number",   
+                       CURSOR(SELECT e.employee_id AS "employee_number",   
+                                 e.first_name||chr(39)||e.last_name AS "employee_name",   
+                                 e.salary,   
+                                 e.email,   
+                                 e.phone_number,   
+                                 e.hire_date   
+                          FROM   hr.employees e   
+                          WHERE  e.department_id = d.department_id   
+                          ORDER BY e.employee_id) AS "employees"   
+            FROM   hr.departments d   
+            ORDER BY d.department_name';
+        Begin
+        return v_sql;
+        End;
+        </pre>
+        
+        <b>OR</b>
+        
+        <pre>
+        Begin
+        return somefunction(:a,:b,:c);
+        End;
+        </pre>
+
+  - # ====== Custom Attribute: Query =============================
+    id: 2331348698910392035
+    identification: 
+      attribute: 5
+      name: Query
+      scope: Component
+
+    layout: 
+      sequence: 50
+
+    settings: 
+      type: SQL Query
+      common: true
+      show-in-wizard: true
+      required: true
+      translatable: false
+      minimum-columns: 1
+
+    condition: 
+      depending-on-custom-attribute: Data Source Type # 2331341414476338829
+      depending-on-condition-type: equal to
+      expression: SQL
+      always-evaluate: true
+
+    examples: 
+      examples: |
+        <b> JSON Object Sql </b>   
+        <pre>SELECT json_arrayagg(json_object('department_name' value d.department_name,
+                            'department_number' value d.department_id,
+                            'employees' value (select json_arrayagg(
+                                                        json_object('employee_number' value e.employee_id,
+                                                        'employee_name' value e.first_name || ' ' || e.last_name,
+                                                        'salary' value e.salary,
+                                                        'email' value e.email,
+                                                        'phone_number' value e.phone_number,
+                                                        'hire_date' value e.hire_date) returning clob)
+                                                from hr.employees e
+                                                where e.department_id = d.department_id
+                                                order by e.employee_id) returning clob) returning clob
+                                                ) result
+        
+        FROM hr.departments d
+        ORDER BY d.department_name    </pre>
+        <b> Cursor Sql </b>   
+        <pre>SELECT d.department_name AS "department_name",   
+                       d.department_id AS "department_number",   
+                       CURSOR(SELECT e.employee_id AS "employee_number",   
+                                 e.first_name||' '||e.last_name AS "employee_name",   
+                                 e.salary,   
+                                 e.email,   
+                                 e.phone_number,   
+                                 e.hire_date   
+                          FROM   hr.employees e   
+                          WHERE  e.department_id = d.department_id   
+                          ORDER BY e.employee_id) AS "employees"   
+            FROM   hr.departments d   
+            ORDER BY d.department_name    </pre>
+        <b> Simple Sql </b>  
+         <pre>SELECT d.department_name AS "department_name",   
+                        d.department_id AS "department_number",   
+                       e.employee_id AS "employee_number",   
+                       e.first_name || ' ' || e.last_name AS "employee_name",   
+                       e.salary,   
+                       e.email,   
+                       e.phone_number,   
+                       e.hire_date   
+           FROM hr.departments d, hr.employees e   
+          WHERE e.department_id = d.department_id   
+          ORDER BY d.department_name, e.employee_id    </pre>
+        
+        <b>master columns = </b> department_name , department_number
+
+  - # ====== Custom Attribute: Master Query Columns ==============
+    id: 2331349828314396889
+    identification: 
+      attribute: 6
+      name: Master Query Columns
+      scope: Component
+
+    layout: 
+      sequence: 60
+
+    settings: 
+      type: Textarea
+      common: true
+      show-in-wizard: true
+      required: false
+      translatable: false
+
+    condition: 
+      depending-on-custom-attribute: SQL Type # 2331344294260362263
+      depending-on-condition-type: equal to
+      expression: S
+      always-evaluate: true
+
+  - # ====== Custom Attribute: Template Source ===================
+    id: 2331351121715402565
+    identification: 
+      attribute: 7
+      name: Template Source
+      scope: Component
+
+    layout: 
+      sequence: 70
+
+    settings: 
+      type: Select List
+      lov-type: Static
+      common: true
+      show-in-wizard: true
+      required: true
+      translatable: false
+
+    default: 
+      value: T
+
+    condition: 
+      depending-on-custom-attribute: Action # 2331338085136317879
+      depending-on-condition-type: not equal to
+      expression: C
+      always-evaluate: true
+
+    entries: 
+    - # ====== Entry: APEX Static Files ============================
+      id: 2331351562429403640
+      entry: 
+        sequence: 10
+        display: APEX Static Files
+        return: A
+
+      advanced: 
+        quick-pick: false
+
+    - # ====== Entry: APEX Workspace Files =========================
+      id: 2331351972298404516
+      entry: 
+        sequence: 20
+        display: APEX Workspace Files
+        return: W
+
+      advanced: 
+        quick-pick: false
+
+    - # ====== Entry: External URL =================================
+      id: 2331352371238408034
+      entry: 
+        sequence: 30
+        display: External URL
+        return: S
+
+      advanced: 
+        quick-pick: false
+
+    - # ====== Entry: Template ID ==================================
+      id: 2331352797097408944
+      entry: 
+        sequence: 40
+        display: Template ID
+        return: T
+
+      advanced: 
+        quick-pick: false
+
+  - # ====== Custom Attribute: Template Name / URL ===============
+    id: 2331354295785423692
+    identification: 
+      attribute: 8
+      name: Template Name / URL
+      scope: Component
+
+    layout: 
+      sequence: 80
+
+    settings: 
+      type: Text
+      common: true
+      show-in-wizard: true
+      required: false
+      translatable: false
+
+    condition: 
+      depending-on-custom-attribute: Template Source # 2331351121715402565
+      depending-on-condition-type: in list
+      expression: A,W,S
+      always-evaluate: true
+
+    help: 
+      help-text: 'This field contains template file name(without extension) to be fetched from APEX static files, APEX workspace file directories for eg. Template-file-name or External web path/URL for eg. http://abc.com/xyz.docx'
+
+  - # ====== Custom Attribute: Template ID =======================
+    id: 2331355293646430854
+    identification: 
+      attribute: 9
+      name: Template ID
+      scope: Component
+
+    layout: 
+      sequence: 90
+
+    settings: 
+      type: Text
+      common: true
+      show-in-wizard: true
+      required: false
+      translatable: false
+
+    condition: 
+      depending-on-custom-attribute: Template Source # 2331351121715402565
+      depending-on-condition-type: equal to
+      expression: T
+      always-evaluate: true
+
+  - # ====== Custom Attribute: Items to Submit ===================
+    id: 2331356250934433862
+    identification: 
+      attribute: 10
+      name: Items to Submit
+      scope: Component
+
+    layout: 
+      sequence: 100
+
+    settings: 
+      type: Text
+      common: true
+      show-in-wizard: true
+      required: false
+      translatable: false
+
+  - # ====== Custom Attribute: Output Type =======================
+    id: 2331357251574438093
+    identification: 
+      attribute: 11
+      name: Output Type
+      scope: Component
+
+    layout: 
+      sequence: 110
+
+    settings: 
+      type: Select List
+      lov-type: Static
+      common: true
+      show-in-wizard: true
+      required: true
+      translatable: false
+
+    default: 
+      value: pdf
+
+    condition: 
+      depending-on-custom-attribute: Action # 2331338085136317879
+      depending-on-condition-type: equal to
+      expression: R
+      always-evaluate: true
+
+    help: 
+      help-text: Output Type is fixed to only two options i.e. pdf and xlsx for reporting and debug for debugging.
+
+    entries: 
+    - # ====== Entry: XLSX =========================================
+      id: 852058718041021253
+      entry: 
+        sequence: 15
+        display: XLSX
+        return: xlsx
+
+      advanced: 
+        quick-pick: false
+
+    - # ====== Entry: PDF ==========================================
+      id: 2331357782658440037
+      entry: 
+        sequence: 10
+        display: PDF
+        return: pdf
+
+      advanced: 
+        quick-pick: false
+
+    - # ====== Entry: Debug FIle ===================================
+      id: 2331358161847441251
+      entry: 
+        sequence: 20
+        display: Debug FIle
+        return: M
+
+      advanced: 
+        quick-pick: false
+
+  - # ====== Custom Attribute: Output Filename ===================
+    id: 2331359976875454304
+    identification: 
+      attribute: 12
+      name: Output Filename
+      scope: Component
+
+    layout: 
+      sequence: 120
+
+    settings: 
+      type: Text
+      common: true
+      show-in-wizard: true
+      required: false
+      translatable: false
+
+    condition: 
+      depending-on-custom-attribute: Action # 2331338085136317879
+      depending-on-condition-type: equal to
+      expression: R
+      always-evaluate: true
+
+  - # ====== Custom Attribute: Output Method =====================
+    id: 2331360951174458399
+    identification: 
+      attribute: 13
+      name: Output Method
+      scope: Component
+
+    layout: 
+      sequence: 130
+
+    settings: 
+      type: Select List
+      lov-type: Static
+      common: true
+      show-in-wizard: true
+      required: false
+      translatable: false
+
+    default: 
+      value: O
+
+    condition: 
+      depending-on-custom-attribute: Action # 2331338085136317879
+      depending-on-condition-type: equal to
+      expression: R
+      always-evaluate: true
+
+    help: 
+      help-text: This option gives flexibility to either to download or preview output file in browser.
+
+    entries: 
+    - # ====== Entry: Download =====================================
+      id: 2331361511878462045
+      entry: 
+        sequence: 10
+        display: Download
+        return: D
+
+      advanced: 
+        quick-pick: false
+
+    - # ====== Entry: Open =========================================
+      id: 2331361866415463869
+      entry: 
+        sequence: 20
+        display: Open
+        return: O
+
+      advanced: 
+        quick-pick: false
+
+    - # ====== Entry: Print ========================================
+      id: 2331362241956465043
+      entry: 
+        sequence: 30
+        display: Print
+        return: P
+
+      advanced: 
+        quick-pick: false
+
+  files: 
+  - # ====== File: maxprint_v2.min.js ============================
+    id: 61762728992558278
+    identification: 
+      file-name: maxprint_v2.min.js
+
+    attributes: 
+      mime-type: text/javascript
+      file-character-set: Unicode UTF-8
+
+  - # ====== File: print_v2.min.js ===============================
+    id: 1200660613694607998
+    identification: 
+      file-name: print_v2.min.js
+
+    attributes: 
+      mime-type: text/javascript
+      file-character-set: Unicode UTF-8
+
+  - # ====== File: maxprint_v2.js ================================
+    id: 1954444708502300372
+    identification: 
+      file-name: maxprint_v2.js
+
+    attributes: 
+      mime-type: text/javascript
+      file-character-set: Unicode UTF-8
+
