@@ -1,8 +1,0 @@
-dist/
-# Oracle SQLcl Projects
-artifact/*
-var/*
-*.tar.gz
-*.tz
-*.log
-**/.DS_Store
